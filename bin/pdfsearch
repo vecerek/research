@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+# A command line Less to Sass converter
+
+begin
+  require_relative '../lib/research'
+rescue LoadError
+  require 'research'
+end
+
+opts = Research::Exec::PDFSearch.new(ARGV)
+opts.parse!
