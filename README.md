@@ -1,8 +1,9 @@
 # Research
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/research`. To experiment with that code, run `bin/console` for an interactive prompt.
+A Ruby gem used for simple web research. It basically does 2 simple things:
 
-TODO: Delete this and the text above, and describe your gem
+1. **PDFSearch**: finds PDFs through Google search in a certain topic (google search query without the need to type *filetype:pdf*) and downloads them to a specified directory.
+2. **Sitesearch**: finds websites in a certain topic, creates a full screenshot of them which are then downloaded to the specified directory along their url.
 
 ## Installation
 
@@ -18,21 +19,85 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install research
+    $ gem install research-1.5.0.gem
 
 ## Usage
 
-TODO: Write usage instructions here
+### 1) PDFSearch
 
-## Development
+pdfsearch [options] <QUERY>
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+#### Example:
+pdfsearch --limit=1000 --output=path/to/output/directory 'tyler catalogue  site:com'
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+#### Description:
+Simple google search result parser that saves the pdf results for the given google search term. Note, that you don't have to specify the filetype:pdf in the query.
+
+#### Hint:
+If you need to use double quotes inside of the search term, the search term itself should be encased in single quotes, as seen in the Example.
+
+#### Common options:
+    -?, -h, --help                   Show this help message.
+    -v, --version                    Print the PDFSearch version.
+
+#### Input and Output options:
+        --input=DIRECTORY            Specifies the path to the Excel spreadsheet containing the search terms and the output directory.
+                                     For example, with the output parameter set to --output=D:\business\research, the spreadsheet may contain outputs as:
+                                     dentist, tyler, etc., so the final directory would be D:\business\research\dentist, D:\business\research\tyler, etc.
+        --heading                    Specifies that the spreadsheet's first row is not part of the data
+        --output=DIRECTORY           Specifies the path of the folder where you would like to save the results.
+                                     For example: D:\business\inspiration\tyler-project - where tyler-project is a folder.
+        --limit=NUMBER               Configures the number of results that should be parsed and saved this time and later.
+                                     Default value: 100. Maximal value: 200
+                                     Your setting will be saved for later use, so you do not have to specify the limit every time.
+
+#### Miscellaneous options:
+        --timeout=SECONDS            Sets the timeout of a request in seconds
+                                     For example: --timeout=60
+                                     Default value: 300
+        --trace                      Turns on detailed debugging messages
+        --settings                   Shows the saved configuration.
+
+### 2) Sitesearch
+
+sitesearch [options] <QUERY>
+
+#### Example:
+sitesearch --limit=1000 --output=path/to/ouput/directory 'Ruby "programming course" site:com'
+
+#### Description:
+Simple google search result parser that saves a screenshot of each website in the results. The number of results saved can be limited.
+
+#### Hint:
+If you need to use double quotes inside of the search term, the search term itself should be encased in single quotes, as seen in the Example.
+
+#### Common options:
+    -?, -h, --help                   Show this help message.
+    -v, --version                    Print the SiteSearch version.
+
+#### Input and Output options:
+        --input=DIRECTORY            Specifies the path to the Excel spreadsheet containing the search terms and the output directory.
+                                     For example, with the output parameter set to --output=D:\business\research, the spreadsheet may contain outputs as:
+                                     dentist, tyler, etc., so the final directory would be D:\business\research\dentist, D:\business\research\tyler, etc.
+        --heading                    Specifies that the spreadsheet's first row is not part of the data
+        --output=DIRECTORY           Specifies the path of the folder where you would like to save the results.
+                                     For example: D:\business\inspiration\tyler-project - where tyler-project is a folder.
+        --limit=NUMBER               Configures the number of results that should be parsed and saved this time and later.
+                                     Default value: 100. Maximal value: 200
+                                     Your setting will be saved for later use, so you do not have to specify the limit every time.
+
+#### Miscellaneous options:
+        --timeout=SECONDS            Sets the timeout of a request in seconds
+                                     For example: --timeout=60
+                                     Default value: 300
+        --trace                      Turns on detailed debugging messages
+        --settings                   Shows the saved configuration.
+        --lazy-loading               Screenshots will also contain the dynamically loaded content(text and some pictures)
+                                     Attention: This option may cause decreased performance. It is turned off by default.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/research.
+Bug reports and pull requests are welcome on GitHub at https://github.com/vecerek/research.
 
 
 ## License
